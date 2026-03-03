@@ -1,0 +1,52 @@
+/* base for all css*/
+
+:root {
+    /* khoảng cách */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-nor: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+
+    --space-header-top: 15px;
+    --space-header-bottom: 20px;
+    --space-card-main: 20px;
+
+    --max-screen-lg : 1200px;
+    --max-screen-header-lg : 1160px;
+    --large-screen : 960px;
+    --medium-screen : 780px;
+    --mid-small-screen : 650px;
+    --small-screen : 400px;
+
+    /* 1024 -> 1200  large-screen*/ 
+    /* 850 -> 1026 medium-screen */
+    /* < 678 - 380 small-scrren  */
+    
+
+    /* màu sắc */
+    --bg--top-header--color: #000;
+    /* --text-header-hover :   #0693e3; */
+    --text-header-hover: #18588f;
+
+    /* front-size */
+    --base-fontsize : 16px;
+    --top-header--frontsize : 14px;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden; 
+    font-family: Roboto;
+    font-size: 14px;
+}

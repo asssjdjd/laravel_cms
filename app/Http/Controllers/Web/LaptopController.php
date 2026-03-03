@@ -42,7 +42,6 @@ class LaptopController extends Controller {
         try {
             $data = $request->validated();
 
-
             // Handle file upload
             if ($request->hasFile('image')) {
                 $file = $request->file('image');

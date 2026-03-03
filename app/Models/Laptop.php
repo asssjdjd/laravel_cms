@@ -16,4 +16,10 @@ class Laptop extends Model
         'image',
         'content',
     ];
+
+    // quan hệ n - 1 với user
+    public function user() 
+    {
+        return $this->belongsTo(User::class);
+    }
 }

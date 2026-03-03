@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Web\LaptopController;
+use App\Http\Controllers\Web\PhoneController;
+use App\Http\Controllers\Web\GadgetController;
+use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\ContactUsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -8,6 +13,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+// Home
+Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
+
+// User Frontend Routes
+Route::prefix('user')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('user.home');
+    Route::get('/laptops', [HomeController::class, 'laptops'])->name('user.laptops');
+    Route::get('/phones', [HomeController::class, 'phones'])->name('user.phones');
+    Route::get('/gadgets', [HomeController::class, 'gadgets'])->name('user.gadgets');
+    Route::get('/contact-us', [ContactUsController::class, 'index'])->name('user.contact');
+    Route::post('/contact-us', [ContactUsController::class, 'store'])->name('user.contact.store');
+    Route::get('/debug-laptops', function () {
+        $laptops = \App\Models\Laptop::paginate(12);
+        dd($laptops);
+    });
 });
 
 // Laptop
@@ -20,8 +42,24 @@ Route::get('/laptops/{laptop}/edit', [LaptopController::class, 'edit'])->name('l
 Route::put('/laptops/{laptop}', [LaptopController::class, 'update'])->name('laptops.update');
 Route::delete('/laptops/{laptop}', [LaptopController::class, 'destroy'])->name('laptops.destroy');
 
-// 
+// Phone
 
-// Route::get('/phones',)
+Route::get('/phones',[PhoneController::class, 'index']) -> name('phones.index');
+Route::get('/phones/create',[PhoneController::class,'create']) -> name('phones.create');
+Route::post('/phones',  [PhoneController::class, 'store'])->name('phones.store');
+Route::get('/phones/{phone}', [PhoneController::class,'show']) -> name('phones.show');
+Route::get('/phones/{phone}/edit', [PhoneController::class, 'edit'])->name('phones.edit');
+Route::put('/phones/{phone}', [PhoneController::class, 'update'])->name('phones.update');
+Route::delete('/phones/{phone}', [PhoneController::class, 'destroy'])->name('phones.destroy');
 
-// User role 
+// Gadget
+
+Route::get('/gadgets',[GadgetController::class, 'index']) -> name('gadgets.index');
+Route::get('/gadgets/create',[GadgetController::class,'create']) -> name('gadgets.create');
+Route::post('/gadgets',  [GadgetController::class, 'store'])->name('gadgets.store');
+Route::get('/gadgets/{gadget}', [GadgetController::class,'show']) -> name('gadgets.show');
+Route::get('/gadgets/{gadget}/edit', [GadgetController::class, 'edit'])->name('gadgets.edit');
+Route::put('/gadgets/{gadget}', [GadgetController::class, 'update'])->name('gadgets.update');
+Route::delete('/gadgets/{gadget}', [GadgetController::class, 'destroy'])->name('gadgets.destroy');
+
+// Contact Us

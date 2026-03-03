@@ -1,0 +1,6 @@
+#main .group-card .main-card {
+
+    .read-more .read:hover::before {
+        background-color: var(--text-header-hover) !important; 
+    }
+}

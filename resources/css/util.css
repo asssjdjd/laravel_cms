@@ -1,0 +1,29 @@
+/* các class thường dùng */
+.layout-left {
+    margin-left: 150px !important;
+}
+
+.layout-right {
+    margin-right: 150px !important;
+}
+
+.container {
+    margin-left: 10vw !important;
+    margin-right: 10vw !important;
+    overflow: hidden;
+    width: 100%;
+}
+
+.active {
+    border-bottom: 2px solid !important;
+}
+
+.effectFadeIn {
+    transition: all 0.35s ease-in-out !important;
+    /* transition: opacity 1.5s ease-in-out !important; */
+}
+
+.slideEffect {
+    text-decoration: none;
+    color: #fff;
+}

@@ -10,7 +10,12 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    assetsInclude: ['resources/images/**'],
     server: {
+        hmr: {
+            host: 'localhost',
+            port: 5174,
+        },
         watch: {
             ignored: ['**/storage/framework/views/**'],
         },

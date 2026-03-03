@@ -45,4 +45,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // quan hệ 1 - n với laptop 
+    public function laptops()
+    {
+        return $this->hasMany(Laptop::class);
+    }
+
+    // quan hệ 1 - n với phone 
+    public function phones() 
+    {
+        return $this->hasMany(Phone::class);
+    }
 }

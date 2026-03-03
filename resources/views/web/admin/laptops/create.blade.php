@@ -1,103 +1,101 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <div class="max-w-2xl mx-auto">
-        <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Thêm Laptop Mới</h1>
-            <p class="text-gray-600">Điền thông tin chi tiết về laptop mới</p>
-        </div>
+<div class="container mx-auto px-4 py-12 max-w-2xl">
+    <div class="mb-12">
+        <h1 class="text-4xl font-bold text-gray-800 mb-3">Thêm Laptop Mới</h1>
+        <p class="text-gray-600 text-lg">Điền thông tin chi tiết về laptop mới</p>
+    </div>
 
-        <!-- Form -->
-        <div class="bg-white rounded-lg shadow-md p-8">
-            {{-- Hiển thị lỗi validation nếu có --}}
-            @if ($errors->any())
-                <div class="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
-                    <h3 class="text-red-800 font-semibold mb-2">Có lỗi xảy ra:</h3>
-                    <ul class="list-disc list-inside text-red-700">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+    <!-- Form -->
+    <div class="bg-white rounded-xl shadow-lg p-10">
+        {{-- Hiển thị lỗi validation nếu có --}}
+        @if ($errors->any())
+            <div class="mb-8 bg-red-50 border-2 border-red-200 rounded-lg p-6">
+                <h3 class="text-red-800 font-bold mb-4">Có lỗi xảy ra:</h3>
+                <ul class="list-disc list-inside text-red-700 space-y-2">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-            {{-- Hiển thị thông báo thành công nếu có --}}
-            @if (session('success'))
-                <div class="mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
-                    <p class="text-green-800 font-semibold">{{ session('success') }}</p>
-                </div>
-            @endif
+        {{-- Hiển thị thông báo thành công nếu có --}}
+        @if (session('success'))
+            <div class="mb-8 bg-green-50 border-2 border-green-200 rounded-lg p-6">
+                <p class="text-green-800 font-bold">{{ session('success') }}</p>
+            </div>
+        @endif
 
-            {{-- Hiển thị thông báo thất bại --}}
-            @if (session('error'))
-                <div class="mb-6 bg-red-50 border border-green-200 rounded-lg p-4">
-                    <p class="text-green-800 font-semibold">{{ session('error') }}</p>
-                </div>
-            @endif
+        {{-- Hiển thị thông báo thất bại --}}
+        @if (session('error'))
+            <div class="mb-8 bg-red-50 border-2 border-red-200 rounded-lg p-6">
+                <p class="text-red-800 font-bold">{{ session('error') }}</p>
+            </div>
+        @endif
 
-            <form action="{{ route('laptops.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-                @csrf
+        <form action="{{ route('laptops.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+            @csrf
 
-                <!-- Tên Laptop -->
-                <div>
-                    <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Tên Laptop <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value="{{ old('name') }}"
-                        placeholder="Nhập tên laptop..."
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('name') border-red-500 @enderror"
-                    >
-                    @error('name')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+            <!-- Tên Laptop -->
+            <div>
+                <label for="name" class="block text-sm font-bold text-gray-800 mb-3">
+                    Tên Laptop <span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value="{{ old('name') }}"
+                    placeholder="Nhập tên laptop..."
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition @error('name') border-red-500 @enderror"
+                >
+                @error('name')
+                    <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                @enderror
+            </div>
 
-                <!-- Tiêu đề chính -->
-                <div>
-                    <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Tiêu Đề <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value="{{ old('title') }}"
-                        placeholder="Nhập tiêu đề..."
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('title') border-red-500 @enderror"
-                    >
-                    @error('title')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+            <!-- Tiêu đề chính -->
+            <div>
+                <label for="title" class="block text-sm font-bold text-gray-800 mb-3">
+                    Tiêu Đề <span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value="{{ old('title') }}"
+                    placeholder="Nhập tiêu đề..."
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition @error('title') border-red-500 @enderror"
+                >
+                @error('title')
+                    <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                @enderror
+            </div>
 
-                <!-- Tiêu đề phụ -->
-                <div>
-                    <label for="subTitle" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Tiêu Đề Phụ <span class="text-red-500">*</span>
-                    </label>
-                    <input
-                        type="text"
-                        id="subTitle"
-                        name="subTitle"
-                        value="{{ old('subTitle') }}"
-                        placeholder="Nhập tiêu đề phụ..."
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('subTitle') border-red-500 @enderror"
-                    >
-                    @error('subTitle')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+            <!-- Tiêu đề phụ -->
+            <div>
+                <label for="subTitle" class="block text-sm font-bold text-gray-800 mb-3">
+                    Tiêu Đề Phụ <span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text"
+                    id="subTitle"
+                    name="subTitle"
+                    value="{{ old('subTitle') }}"
+                    placeholder="Nhập tiêu đề phụ..."
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition @error('subTitle') border-red-500 @enderror"
+                >
+                @error('subTitle')
+                    <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                @enderror
+            </div>
 
-                <!-- Nội dung -->
-                <div>
-                    <label for="content" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Nội Dung <span class="text-red-500">*</span>
+            <!-- Nội dung -->
+            <div>
+                <label for="content" class="block text-sm font-bold text-gray-800 mb-3">
+                    Nội Dung <span class="text-red-500">*</span>
                     </label>
                     <textarea
                         id="content"

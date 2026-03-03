@@ -27,7 +27,7 @@ class LaptopFactory extends Factory
             'content'  => fake()->text(200),   // Lưu ý: Migration bạn để string nên giới hạn 255 ký tự.
 
             // Ảnh giả lập
-            'image' => fake()->imageUrl(640, 480, 'technics', true),
+            'image' => 'laptops/1770232468_anh1.jpg',
         ];
     }
 }

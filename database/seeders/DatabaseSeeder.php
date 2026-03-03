@@ -16,15 +16,28 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        
+        // Fake one user - skip nếu đã tồn tại
+        if (\App\Models\User::count() === 0) {
+            User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+            ]);
+        }
 
         // fake data laptop
         $this->call([
             LaptopSeeder::class,
+        ]);
+
+        // fake data phone
+        $this->call([
+            PhoneSeeder::class
+        ]);
+
+        // fake data gadget
+        $this->call([
+            GadgetSeeder::class
         ]);
     }
 }

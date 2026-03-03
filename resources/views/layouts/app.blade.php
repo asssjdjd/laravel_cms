@@ -12,11 +12,13 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold text-blue-600">Laravel CMS</h1>
+                    <a href="{{ route('admin.home') }}" class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition">Laravel CMS</a>
                 </div>
                 <ul class="flex space-x-6">
-                    <li><a href="/" class="text-gray-700 hover:text-blue-600 transition">Trang Chủ</a></li>
-                    <li><a href="/laptops" class="text-gray-700 hover:text-blue-600 transition">Laptop</a></li>
+                    <li><a href="{{ route('admin.home') }}" class="text-gray-700 hover:text-blue-600 transition font-medium">Trang Chủ</a></li>
+                    <li><a href="{{ route('laptops.index') }}" class="text-gray-700 hover:text-blue-600 transition">Laptop</a></li>
+                    <li><a href="{{ route('phones.index') }}" class="text-gray-700 hover:text-blue-600 transition">Điện Thoại</a></li>
+                    <li><a href="{{ route('gadgets.index') }}" class="text-gray-700 hover:text-blue-600 transition">Thiết Bị</a></li>
                 </ul>
             </div>
         </div>
