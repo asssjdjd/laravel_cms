@@ -1,0 +1,46 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Laravel
+.env.example
+.env
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build artifacts
+public/build
+public/hot
+
+# Testing
+phpunit.xml
+tests
+
+# Documentation
+*.md
+docs
+
+# Temporary
+*.log
+.tmp
+
+# Windows
+Thumbs.db
+desktop.ini

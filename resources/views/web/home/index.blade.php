@@ -89,12 +89,12 @@
 
       <!-- masthead-->
        <div id="slider-wrapper">
-            <button class = "nav-btn prev" id = "prevBtn"><img src="/images/arrow_back.svg" alt=""></button>
+            <button class = "nav-btn prev" id = "prevBtn"><img src="{{ asset('fonts/arrow_back.svg') }}" alt=""></button>
             <div class="slider-container" id="slider">
 
                 <div class="slider-item">
                     <!-- <img src="/" alt=""> -->
-                    <img src="/images/anh1.jpg" alt="Laptop">
+                    <img src="{{ asset('images/anh1.jpg') }}" alt="Laptop">
                     <div class="text-overlay">
                         <h3 class="slide-title"><a href="#" style="text-decoration: none; color: #fff;">Is MacBook Pro best laptop yet?</a></h3>
                         <div class="slide-meta">
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="slider-item">
-                    <img src="/images/anh4.jpg" alt="Laptop">
+                    <img src="{{ asset('images/anh2.jpg') }}" alt="Laptop">
                     <div class="text-overlay">
                         <h3 class="slide-title"><a href="#" style="text-decoration: none; color: #fff;">Latest XBox games news</a></h3>
                         <div class="slide-meta">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 <div class="slider-item">
-                    <img src="/images/anh7.jpg" alt="Laptop">
+                    <img src="{{ asset('images/anh3.jpg') }}" alt="Laptop">
                     <div class="text-overlay">
                         <h3 class="slide-title"><a href="#" style="text-decoration: none; color: #fff;">Microsoft introduced Windows Hololens</a></h3>
                         <div class="slide-meta">
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div class="slider-item">
-                    <img src="/images/anh8.jpg" alt="Laptop">
+                    <img src="{{ asset('images/anh4.jpg') }}" alt="Laptop">
                     <div class="text-overlay">
                         <h3 class="slide-title"><a href="#" style="text-decoration: none; color: #fff;">GoPro hero5 black review</a></h3>
                         <div class="slide-meta">
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="slider-item">
-                    <img src="/images/anh9.jpg" alt="Laptop">
+                    <img src="{{ asset('images/anh5.jpg') }}" alt="Laptop">
                     <div class="text-overlay">
                         <h3 class="slide-title"><a href="#" style="text-decoration: none; color: #fff;">Which Apple phone is the best?</a></h3>
                         <div class="slide-meta">
@@ -144,7 +144,7 @@
                     </div>
                 </div>
                 <div class="slider-item">
-                    <img src="/images/anh7.jpg" alt="Laptop">
+                    <img src="{{ asset('images/anh6.jpg') }}" alt="Laptop">
                     <div class="text-overlay">
                         <h3 class="slide-title"><a href="#" style="text-decoration: none; color: #fff;">How to setup google home on Android and iOS device</a></h3>
                         <div class="slide-meta">
@@ -154,7 +154,7 @@
                     </div>
                 </div>
             </div>
-            <button class = "nav-btn next" id = "nextBtn"><img src="/images/arrow_forward.svg" alt=""></button>
+            <button class = "nav-btn next" id = "nextBtn"><img src="{{ asset('fonts/arrow_forward.svg') }}" alt=""></button>
        </div>
 
        <!-- model-search -->
@@ -308,7 +308,7 @@
          <button id="backToTop" class="back-to-top-btn">
             <span class="text" style="display: flex; align-items: center; justify-items: center; gap: 10px">
                 <span>Back To Top</span>
-                <img src="/images/arrow_forward_black.svg" alt="Up">
+                <img src="{{ asset('fonts/arrow_forward_black.svg') }}" alt="Up">
             </span>
         </button>
      </section>
@@ -318,7 +318,7 @@
         <div class="group-card">
             <div class = "left-footer">
                 <div class="footer-card foot_1">
-                    <a href="{{ route('user.home') }}"><img src="/images/logo-white.png" alt=""></a>
+                    <a href="{{ route('user.home') }}"><img src="{{ asset('images/logo-white.png') }}" alt=""></a>
                     <div class = "footer-content" style="font-size: 16px;">
                         Cenote is Free Clean and Minimal WordPress Blog Theme.
                         It is suitable for any types of blog.

@@ -15,7 +15,7 @@ const search_2 = document.getElementById("search_2");
 const search_3 = document.querySelectorAll("#header-nav-icon li")[0];
 
 
-console.log(closeModal)
+// console.log(closeModal)
 // logic đóng searhModal
 if(closeModal) {
     closeModal.addEventListener("click", () => {
@@ -45,13 +45,13 @@ if(search_3) {
 document.getElementById('backToTop').addEventListener('click', function() {
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth' 
+                behavior: 'smooth'
             });
         });
 
         window.addEventListener('scroll', () => {
             const visibleBtnHeight = 350;
-            
+
 
             if(window.scrollY > visibleBtnHeight) {
                 document.getElementById('backToTop').setAttribute('style','display: flex; transition : opacity 3s ease-in-out');
@@ -70,18 +70,18 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 
-// thanh navbar xuất hiện khi khéo qua vị trí nhất định 
+// thanh navbar xuất hiện khi khéo qua vị trí nhất định
 // navBar.setAttribute('style','display : none;')
 window.addEventListener('scroll', () => {
     const navBar = document.getElementById("nav-bar");
     const headerHeight = 150 ;
     // console.log(headerHeight);
-    
+
     const viewportWidthWithScroll = window.innerWidth;
     if(window.scrollY > headerHeight) {
         navBar.setAttribute('style','display: flex !important');
         navBar.setAttribute('transition','opacity 0.4s ease,transform 0.4s ease,visibility 0.4s;');
-    
+
         if(viewportWidthWithScroll > 1024) {
             navBarItems.setAttribute('style','display: flex;');
         }
@@ -94,7 +94,7 @@ window.addEventListener('scroll', () => {
         if(window.innerWidth > 1024) {
             visibleNav.setAttribute('style','display : none !important');
         }
-    
+
     }
 });
 
@@ -153,7 +153,7 @@ hideNavItems.forEach((item) => {
     const link = item.querySelector('a');
     const currentPath = window.location.pathname.slice(1);
     const href = link.getAttribute('href');
-    const isHome = (currentPath === "/" || currentPath.endsWith("index.html" || 
+    const isHome = (currentPath === "/" || currentPath.endsWith("index.html" ||
         link.baseURI.includes("index.html")
     ));
 
@@ -177,7 +177,7 @@ navbarHeader.forEach((item) => {
     const link = item.querySelector('a');
     const currentPath = window.location.pathname.slice(1);
     const href = link.getAttribute('href');
-    const isHome = (currentPath === "/" || currentPath.endsWith("index.html" || 
+    const isHome = (currentPath === "/" || currentPath.endsWith("index.html" ||
         link.baseURI.includes("index.html")
     ));
 
@@ -196,7 +196,7 @@ navbarHeader.forEach((item) => {
     }
 });
 
-// logic của ảnh chuyển động 
+// logic của ảnh chuyển động
 const slider = document.getElementById('slider');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
