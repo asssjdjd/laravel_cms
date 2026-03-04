@@ -1,75 +1,97 @@
 @extends('layouts.app')
 
+@section('page_title', 'Danh sách Laptop')
+
 @section('content')
-<div class="container mx-auto px-4 py-12 max-w-7xl">
-    <div class="mb-12 flex justify-between items-center border-b border-gray-200 pb-8">
-        <div>
-            <h1 class="text-4xl font-bold text-gray-800 mb-3">Danh sách bài viết về Laptop</h1>
-            <p class="text-gray-600 text-lg">Quản lý các bài đăng laptop của bạn</p>
-        </div>
-        <a href="{{ route('laptops.create') }}" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 flex items-center gap-2 hover:shadow-lg hover:scale-105">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            Thêm Laptop Mới
-        </a>
+<div class="mb-8 flex justify-between items-center">
+    <div>
+        <h1 class="text-2xl font-bold text-gray-800">Danh sách bài viết về Laptop</h1>
+        <p class="text-gray-600 text-sm mt-1">Quản lý các bài đăng laptop của bạn</p>
     </div>
+    <a href="{{ route('laptops.create') }}" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 flex items-center gap-2 hover:shadow-lg">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Thêm Laptop Mới
+    </a>
+</div>
+
+<div class="bg-white rounded-lg shadow-lg p-6">
 
     @if($laptops->count() > 0)
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($laptops as $laptop)
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                    <!-- Hình ảnh laptop -->
-                    @if($laptop->image)
-                        <div class="h-48 bg-gray-200 overflow-hidden">
-                            <img src="{{ asset('storage/' . $laptop->image) }}"
-                                 alt="{{ $laptop->name }}"
-                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-                        </div>
-                    @else
-                        <div class="h-48 bg-gray-300 flex items-center justify-center">
-                            <span class="text-gray-500">No Image</span>
-                        </div>
-                    @endif
-
-                    <!-- Nội dung -->
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">{{ $laptop->name }}</h3>
-
-                        @if($laptop->subTitle)
-                            <p class="text-sm text-gray-600 mb-4 line-clamp-2">
-                                {{ $laptop->subTitle }}
-                            </p>
-                        @endif
-
-
-                        <!-- Nút hành động -->
-                        <div class="flex gap-3 mt-6">
-                            <a href="{{ route('laptops.show', $laptop) }}" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg text-center transition-all duration-200 hover:shadow-md">
-                                Xem
-                            </a>
-                            <a href="{{ route('laptops.edit', $laptop) }}" class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg text-center transition-all duration-200 hover:shadow-md">
-                                Sửa
-                            </a>
-                            <form action="{{ route('laptops.destroy', $laptop) }}" method="POST" style="flex: 1;" onsubmit="return confirm('Bạn chắc chắn muốn xóa?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-md">
-                                    Xóa
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+        <div class="overflow-x-auto shadow-lg rounded-lg">
+            <table class="w-full border-collapse bg-white">
+                <thead>
+                    <tr class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                        <th class="px-6 py-4 text-left font-semibold">STT</th>
+                        <th class="px-6 py-4 text-left font-semibold">Hình Ảnh</th>
+                        <th class="px-6 py-4 text-left font-semibold">Tên Laptop</th>
+                        <th class="px-6 py-4 text-left font-semibold">Mô Tả</th>
+                        {{-- <th class="px-6 py-4 text-left font-semibold">Giá</th> --}}
+                        <th class="px-6 py-4 text-center font-semibold">Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($laptops as $index => $laptop)
+                        <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-200">
+                            <td class="px-6 py-4 text-gray-800 font-medium">{{ $index + 1 }}</td>
+                            <td class="px-6 py-4">
+                                @if($laptop->image)
+                                    <img src="{{ asset('storage/' . $laptop->image) }}"
+                                         alt="{{ $laptop->name }}"
+                                         class="w-16 h-16 object-cover rounded-lg border border-gray-300 hover:scale-110 transition-transform duration-200">
+                                @else
+                                    <div class="w-16 h-16 bg-gray-300 rounded-lg flex items-center justify-center text-gray-500 text-xs">
+                                        No Image
+                                    </div>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4">
+                                <p class="font-semibold text-gray-800">{{ $laptop->name }}</p>
+                            </td>
+                            <td class="px-6 py-4 text-gray-600 text-sm max-w-xs truncate">
+                                {{ $laptop->subTitle ?? 'N/A' }}
+                            </td>
+                            {{-- <td class="px-6 py-4 font-bold text-blue-600">
+                                {{ number_format($laptop->price ?? 0, 0, ',', '.') }} ₫
+                            </td> --}}
+                            <td class="px-6 py-4">
+                                <div class="flex gap-2 justify-center">
+                                    <a href="{{ route('laptops.show', $laptop) }}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-md">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </a>
+                                    <a href="{{ route('laptops.edit', $laptop) }}" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-md">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                        </svg>
+                                    </a>
+                                    <form action="{{ route('laptops.destroy', $laptop) }}" method="POST" class="inline-block" onsubmit="return confirm('Bạn chắc chắn muốn xóa?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-md">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
 
         <!-- Pagination -->
-        <div class="mt-12 pt-8 border-t border-gray-200">
+        <div class="mt-8 pt-6 border-t border-gray-200">
             {{ $laptops->links() }}
         </div>
+        </div>
     @else
-        <div class="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-8 text-center">
+        <div class="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-8 text-center">
             <p class="text-yellow-800 text-lg font-bold mb-2">Không có bài viết về laptop nào trong danh sách</p>
             <p class="text-yellow-600 mb-6">Hãy thêm bài viết về laptop mới để bắt đầu</p>
             <a href="{{ route('laptops.create') }}" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200">
@@ -77,5 +99,4 @@
             </a>
         </div>
     @endif
-</div>
 @endsection

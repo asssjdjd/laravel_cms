@@ -16,6 +16,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Test domain configuration (debug)
+Route::get('/test-domain', function () {
+    return [
+        'host' => request()->getHost(),
+        'url' => request()->url(),
+        'app_url' => config('app.url'),
+        'scheme' => request()->getScheme(),
+        'forwarded_proto' => request()->header('X-Forwarded-Proto'),
+        'forwarded_host' => request()->header('X-Forwarded-Host'),
+    ];
+});
+
 // Auth Routes
 Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);

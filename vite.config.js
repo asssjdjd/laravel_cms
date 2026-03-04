@@ -12,9 +12,10 @@ export default defineConfig({
     ],
     assetsInclude: ['resources/images/**'],
     server: {
+        host: true,
         hmr: {
-            host: 'localhost',
-            port: 5174,
+            host: 'pasty-unscarce-magnanimously.ngrok-free.dev',
+            protocol: 'wss',
         },
         watch: {
             ignored: ['**/storage/framework/views/**'],
