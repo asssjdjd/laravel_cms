@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css/page.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/hover.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">>
+    <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
 <html lang="en">
 <head>
     <meta charset="UTF-8">

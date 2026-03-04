@@ -8,9 +8,182 @@ Một hệ thống quản lý nội dung (CMS) được xây dựng bằng Larav
 
 ##  Kịch Bản Chuẩn Cho Các UseCase
 
-***Đọc chi tiết tại đây:***
+### 1. **Laptop Management - Quản Lý Laptop**
 
-https://docs.google.com/document/d/1gMnLJc9FGYCF0kxzdEQvsdf8sL8ACm7GNU6pNgNrj-g/edit?tab=t.0
+**Tạo Laptop Mới:**
+1. Admin đăng nhập với tài khoản admin@gmail.com / admin123
+2. Truy cập `/laptops/create`
+3. Điền thông tin: Tên, Tiêu đề, Tiêu đề phụ, Nội dung, Ảnh
+4. Upload ảnh (bắt buộc, max 2MB)
+5. Click "Thêm" → Lưu vào database → Redirect tới trang chi tiết
+
+**Xem Danh Sách Laptop:**
+1. Truy cập `/laptops`
+2. Hiển thị danh sách laptop phân trang (12 items/page)
+3. Mỗi laptop có tên, ngày tạo, ảnh thumbnail
+
+**Xem Chi Tiết Laptop:**
+1. Từ danh sách, click vào laptop
+2. Hiển thị đầy đủ thông tin: Tên, tiêu đề, nội dung, ảnh
+3. Có nút "Sửa" và "Xóa"
+
+**Cập Nhật Laptop:**
+1. Click nút "Sửa" từ chi tiết
+2. Có thể cập nhật: Tên, tiêu đề, nội dung
+3. Ảnh không bắt buộc (giữ ảnh cũ nếu không upload)
+4. Click "Cập nhật" → Lưu changes → Redirect về chi tiết
+
+**Xóa Laptop:**
+1. Click nút "Xóa"
+2. Xóa ảnh khỏi storage
+3. Xóa record khỏi database
+4. Redirect tới danh sách
+
+---
+
+### 2. **Phone Management - Quản Lý Điện Thoại**
+
+**Tạo Điện Thoại Mới:**
+1. Admin truy cập `/phones/create`
+2. Điền: Tên, Tiêu đề, Tiêu đề phụ, Nội dung, Ảnh
+3. Upload ảnh (bắt buộc, max 2MB)
+4. Click "Thêm" → Lưu vào database
+
+**Xem Danh Sách Điện Thoại:**
+1. Truy cập `/phones`
+2. Hiển thị danh sách điện thoại phân trang (12 items/page)
+3. Có ảnh thumbnail, tên, ngày tạo
+
+**Xem Chi Tiết Điện Thoại:**
+1. Click vào điện thoại từ danh sách
+2. Hiển thị đầy đủ thông tin với ảnh lớn
+3. Có nút "Sửa" và "Xóa"
+
+**Cập Nhật & Xóa Điện Thoại:**
+- Tương tự như Laptop Management
+
+---
+
+### 3. **Gadget Management - Quản Lý Gadget**
+
+**Tạo Gadget Mới:**
+1. Admin truy cập `/gadgets/create`
+2. Điền thông tin tương tự (Tên, Tiêu đề, Nội dung, Ảnh)
+3. Upload ảnh bắt buộc
+4. Click "Thêm"
+
+**Xem Danh Sách Gadget:**
+1. Truy cập `/gadgets`
+2. Danh sách gadget phân trang (12 items/page)
+
+**Xem Chi Tiết, Cập Nhật & Xóa:**
+- Tương tự như Laptop/Phone Management
+
+---
+
+### 4. **Trang Chủ User - Hiển Thị Sản Phẩm**
+
+**Trang Chủ (/):**
+1. User truy cập trang chủ (không cần đăng nhập)
+2. Hiển thị 10 sản phẩm mới nhất từ tất cả categories (Laptop, Phone, Gadget)
+3. Mỗi product hiển thị:
+   - Ảnh thumbnail
+   - Tiêu đề
+   - Category (LAPTOP/PHONE/GADGET)
+   - Ngày tạo
+   - Preview nội dung (truncate 400 ký tự)
+   - Nút "READ MORE"
+4. **Phân trang**: 10 items/page, hiển thị page numbers, previous/next buttons
+5. Nếu overflow sang trang 2, hiển thị phân trang tương ứng
+
+**Xem Danh Sách Laptop (User):**
+1. Truy cập `/user/laptops`
+2. Hiển thị tất cả laptop phân trang (12 items/page)
+3. Có ảnh, tiêu đề, category, ngày tạo
+
+**Xem Danh Sách Điện Thoại (User):**
+1. Truy cập `/user/phones`
+2. Hiển thị danh sách điện thoại phân trang
+
+**Xem Danh Sách Gadget (User):**
+1. Truy cập `/user/gadgets`
+2. Hiển thị danh sách gadget phân trang
+
+---
+
+### 5. **Contact Us - Liên Hệ**
+
+**Gửi Thông Tin Liên Hệ:**
+1. User truy cập `/user/contact-us`
+2. Điền form: Tên, Email, Tin nhắn
+3. Validation: Tên (required), Email (required, email format), Tin nhắn (required)
+4. Click "Gửi" → Lưu vào bảng contact_us
+5. Hiển thị thông báo "Gửi thành công!"
+
+**Xem Danh Sách Liên Hệ (Admin):**
+1. Admin truy cập API `/api/contact` (hoặc admin page nếu có)
+2. Xem tất cả tin nhắn từ users
+3. Thông tin: Tên, Email, Tin nhắn, Ngày gửi
+
+---
+
+### 6. **Authentication - Đăng Nhập/Đăng Xuất**
+
+**Đăng Nhập:**
+1. User truy cập `/login`
+2. Điền email và password
+3. System kiểm tra credentials
+4. Nếu đúng:
+   - Tạo JWT token
+   - Lưu token vào session
+   - Redirect theo role:
+     - Admin → `/admin/home`
+     - User → `/user/home`
+5. Nếu sai → Hiển thị lỗi "Email hoặc mật khẩu không chính xác"
+
+**Đăng Xuất:**
+1. User click "Logout"
+2. Xóa JWT token khỏi session
+3. Redirect tới `/user/home`
+
+**Admin Protection:**
+- Khi truy cập route admin (CRUD, /admin/home)
+- Middleware CheckJwt kiểm tra token tồn tại
+- Middleware CheckRole kiểm tra role = admin
+- Nếu không đúng → Redirect tới `/login`
+
+---
+
+### 7. **Admin Dashboard**
+
+**Trang Admin Home (/admin/home):**
+1. Admin phải đăng nhập JWT + role admin
+2. Hiển thị dashboard với:
+   - Số lượng Laptop
+   - Số lượng Phone
+   - Số lượng Gadget
+   - Số lượng Contact Messages
+3. Navigation links tới CRUD các resources
+4. Quick stats
+
+---
+
+### 8. **API Endpoints (Nếu Sử Dụng API)**
+
+**Login API:**
+```
+POST /api/login
+Body: { "email": "admin@gmail.com", "password": "admin123" }
+Response: { "token": "...", "user": {...} }
+```
+
+**Get Laptops API:**
+```
+GET /api/laptops
+Response: [ { id, name, title, content, image, ... } ]
+```
+
+**Create/Update/Delete** - Tương tự cho Phones, Gadgets
 
 ##  Thiết Kế Biểu Đồ Lớp Chi Tiết Cho Các UseCase
 
