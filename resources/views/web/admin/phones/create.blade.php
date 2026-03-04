@@ -78,7 +78,7 @@
                 </div>
 
                 <!-- Tiêu đề chính -->
-                <div>
+                {{-- <div>
                     <label for="time" class="block text-sm font-semibold text-gray-700 mb-2">
                         Thời Gian
                     </label>
@@ -93,7 +93,7 @@
                     @error('time')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
-                </div>
+                </div> --}}
 
                 <!-- Nội dung -->
                 <div>

@@ -41,14 +41,14 @@
                 @method('PUT')
 
                 <!-- Tên Laptop -->
-                <div>
+                {{-- <div>
                     <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">
                         Tên Laptop <span class="text-red-500">*</span>
                     </label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
                         value="{{ old('name', $laptop->name) }}"
                         placeholder="Nhập tên laptop..."
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('name') border-red-500 @enderror"
@@ -56,32 +56,32 @@
                     @error('name')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
-                </div>
+                </div> --}}
 
                 <!-- Thương hiệu -->
-                <div>
+                {{-- <div>
                     <label for="brand" class="block text-sm font-semibold text-gray-700 mb-2">
                         Thương Hiệu
                     </label>
-                    <input 
-                        type="text" 
-                        id="brand" 
-                        name="brand" 
+                    <input
+                        type="text"
+                        id="brand"
+                        name="brand"
                         value="{{ old('brand', $laptop->brand) }}"
                         placeholder="VD: Dell, HP, Lenovo..."
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
                     >
-                </div>
+                </div> --}}
 
                 <!-- Tiêu đề chính -->
                 <div>
                     <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">
                         Tiêu Đề <span class="text-red-500">*</span>
                     </label>
-                    <input 
-                        type="text" 
-                        id="title" 
-                        name="title" 
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
                         value="{{ old('title', $laptop->title) }}"
                         placeholder="Nhập tiêu đề..."
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('title') border-red-500 @enderror"
@@ -96,10 +96,10 @@
                     <label for="subTitle" class="block text-sm font-semibold text-gray-700 mb-2">
                         Tiêu Đề Phụ <span class="text-red-500">*</span>
                     </label>
-                    <input 
-                        type="text" 
-                        id="subTitle" 
-                        name="subTitle" 
+                    <input
+                        type="text"
+                        id="subTitle"
+                        name="subTitle"
                         value="{{ old('subTitle', $laptop->subTitle) }}"
                         placeholder="Nhập tiêu đề phụ..."
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('subTitle') border-red-500 @enderror"
@@ -114,9 +114,9 @@
                     <label for="content" class="block text-sm font-semibold text-gray-700 mb-2">
                         Nội Dung <span class="text-red-500">*</span>
                     </label>
-                    <textarea 
-                        id="content" 
-                        name="content" 
+                    <textarea
+                        id="content"
+                        name="content"
                         rows="6"
                         placeholder="Nhập mô tả chi tiết về laptop..."
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition resize-none @error('content') border-red-500 @enderror"
@@ -136,17 +136,17 @@
                     @if($laptop->image)
                         <div class="mb-4">
                             <p class="text-sm text-gray-600 mb-2">Hình ảnh hiện tại:</p>
-                            <img src="{{ asset('storage/' . $laptop->image) }}" 
-                                 alt="{{ $laptop->name }}" 
+                            <img src="{{ asset('storage/' . $laptop->image) }}"
+                                 alt="{{ $laptop->name }}"
                                  class="h-48 rounded-lg object-cover">
                         </div>
                     @endif
 
                     <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-blue-500 transition" id="drop-zone">
-                        <input 
-                            type="file" 
-                            id="image" 
-                            name="image" 
+                        <input
+                            type="file"
+                            id="image"
+                            name="image"
                             accept="image/jpeg,image/png,image/jpg"
                             class="hidden"
                         >
@@ -168,8 +168,8 @@
 
                 <!-- Buttons -->
                 <div class="flex gap-4 pt-4">
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2"
                     >
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -177,8 +177,8 @@
                         </svg>
                         Cập Nhật Laptop
                     </button>
-                    <a 
-                        href="{{ route('laptops.show', $laptop) }}" 
+                    <a
+                        href="{{ route('laptops.show', $laptop) }}"
                         class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-3 px-4 rounded-lg transition duration-200 text-center"
                     >
                         Hủy
@@ -236,13 +236,13 @@
         if (files.length > 0) {
             const file = files[0];
             const reader = new FileReader();
-            
+
             reader.onload = (e) => {
                 imagePreview.querySelector('img').src = e.target.result;
                 imagePreview.classList.remove('hidden');
                 imagePlaceholder.classList.add('hidden');
             };
-            
+
             reader.readAsDataURL(file);
         }
     }

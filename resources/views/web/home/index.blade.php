@@ -175,29 +175,39 @@
      <!-- main -->
      <section id = "main">
         <div class="group-card">
-            <!-- Render Laptops -->
-            @forelse($laptops as $laptop)
+            <!-- Render Featured Products -->
+            @forelse($products as $product)
             <div class="main-card">
                 <div class = "img-card">
                     <a href="#">
-                        <img src="{{ asset('storage/' . $laptop->image) }}" alt="{{ $laptop->title }}" width="360px" height="180px">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}" width="360px" height="180px">
                         <div class="overlay">
-                            <span class="overlay-text">{{ substr($laptop->title, 0, 1) }}</span>
+                            <span class="overlay-text">{{ substr($product->title, 0, 1) }}</span>
                         </div>
                     </a>
                 </div>
                 <div class = "infor-card">
                     <h2 style = "font-size: 20px; margin-top: 30px;">
-                        <a style="text-decoration: none;" href="#">{{ $laptop->title }}</a>
+                        <a style="text-decoration: none;" href="#">{{ $product->title }}</a>
                     </h2>
                     <div class="slide-meta">
-                            <span class="category"><div class="category_2"><a href="{{ route('user.laptops') }}" class="slideEffect">LAPTOP</a></div></span>
-                            <span class="separator"></span> <span class="date"><a href="#" class = "slideEffect">{{ $laptop->created_at->format('M d, Y') }}</a></span>
+                            <span class="category">
+                                <div class="category_2">
+                                    @if(class_basename($product) == 'Laptop')
+                                        <a href="{{ route('user.laptops') }}" class="slideEffect">LAPTOP</a>
+                                    @elseif(class_basename($product) == 'Phone')
+                                        <a href="{{ route('user.phones') }}" class="slideEffect">PHONE</a>
+                                    @elseif(class_basename($product) == 'Gadget')
+                                        <a href="{{ route('user.gadgets') }}" class="slideEffect">GADGET</a>
+                                    @endif
+                                </div>
+                            </span>
+                            <span class="separator"></span> <span class="date"><a href="#" class = "slideEffect">{{ $product->created_at->format('M d, Y') }}</a></span>
                     </div>
                 </div>
 
                 <div class="introduce-card" style="font-size: 18px;line-height: 1.8">
-                    {{ Str::limit($laptop->content, 150) }}
+                    {{ Str::limit($product->content, 400) }}
                 </div>
 
                <a href="#" class="read-more">
@@ -206,91 +216,27 @@
             </div>
             @empty
             <div class="main-card" style="grid-column: span 3;">
-                <p>No laptops available</p>
+                <p>No products available</p>
             </div>
-            @endforelse
-
-            <!-- Render Phones -->
-            @forelse($phones as $phone)
-            <div class="main-card">
-                <div class = "img-card">
-                    <a href="#">
-                        <img src="{{ asset('storage/' . $phone->image) }}" alt="{{ $phone->title }}" width="360px" height="180px">
-                        <div class="overlay">
-                            <span class="overlay-text">{{ substr($phone->title, 0, 1) }}</span>
-                        </div>
-                    </a>
-                </div>
-                <div class = "infor-card">
-                    <h2 style = "font-size: 20px; margin-top: 30px;">
-                        <a style="text-decoration: none;" href="#">{{ $phone->title }}</a>
-                    </h2>
-                    <div class="slide-meta">
-                            <span class="category"><div class="category_2"><a href="{{ route('user.phones') }}" class="slideEffect">PHONE</a></div></span>
-                            <span class="separator"></span> <span class="date"><a href="#" class = "slideEffect">{{ $phone->created_at->format('M d, Y') }}</a></span>
-                    </div>
-                </div>
-
-                <div class="introduce-card" style="font-size: 18px;line-height: 1.8">
-                    {{ Str::limit($phone->content, 150) }}
-                </div>
-
-               <a href="#" class="read-more">
-                    <div class = "read">READ MORE</div>
-                </a>
-            </div>
-            @empty
-            @endforelse
-
-            <!-- Render Gadgets -->
-            @forelse($gadgets as $gadget)
-            <div class="main-card">
-                <div class = "img-card">
-                    <a href="#">
-                        <img src="{{ asset('storage/' . $gadget->image) }}" alt="{{ $gadget->title }}" width="360px" height="180px">
-                        <div class="overlay">
-                            <span class="overlay-text">{{ substr($gadget->title, 0, 1) }}</span>
-                        </div>
-                    </a>
-                </div>
-                <div class = "infor-card">
-                    <h2 style = "font-size: 20px; margin-top: 30px;">
-                        <a style="text-decoration: none;" href="#">{{ $gadget->title }}</a>
-                    </h2>
-                    <div class="slide-meta">
-                            <span class="category"><div class="category_2"><a href="{{ route('user.gadgets') }}" class="slideEffect">GADGET</a></div></span>
-                            <span class="separator"></span> <span class="date"><a href="#" class = "slideEffect">{{ $gadget->created_at->format('M d, Y') }}</a></span>
-                    </div>
-                </div>
-
-                <div class="introduce-card" style="font-size: 18px;line-height: 1.8">
-                    {{ Str::limit($gadget->content, 150) }}
-                </div>
-
-               <a href="#" class="read-more">
-                    <div class = "read">READ MORE</div>
-                </a>
-            </div>
-            @empty
             @endforelse
         </div>
 
         <!-- Pagination -->
         <div class="pagination">
-            @if($laptops->onFirstPage())
+            @if($products->onFirstPage())
                 <span class="page-number" style="color: rgb(134, 142, 150);">←</span>
             @else
-                <a href="{{ $laptops->previousPageUrl() }}" class="page-number">←</a>
+                <a href="{{ $products->previousPageUrl() }}" class="page-number">←</a>
             @endif
 
             @php
-                $current = $laptops->currentPage();
-                $last = $laptops->lastPage();
+                $current = $products->currentPage();
+                $last = $products->lastPage();
                 $start = max(1, $current - 1);
                 $end = min($last, $current + 1);
             @endphp
 
-            @foreach($laptops->getUrlRange($start, $end) as $page => $url)
+            @foreach($products->getUrlRange($start, $end) as $page => $url)
                 @if($page == $current)
                     <span class="page-number" style="color: rgb(255, 102, 0);">{{ $page }}</span>
                 @else
@@ -298,8 +244,8 @@
                 @endif
             @endforeach
 
-            @if($laptops->hasMorePages())
-                <a href="{{ $laptops->nextPageUrl() }}" class="page-next">→</a>
+            @if($products->hasMorePages())
+                <a href="{{ $products->nextPageUrl() }}" class="page-next">→</a>
             @else
                 <span class="page-next" style="color: rgb(134, 142, 150);">→</span>
             @endif

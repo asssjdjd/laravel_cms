@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
 
         // fake data laptop
         $this->call([
+            AdminSeeder::class,
             LaptopSeeder::class,
         ]);
 

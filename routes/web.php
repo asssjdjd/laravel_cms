@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\PhoneController;
 use App\Http\Controllers\Web\GadgetController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\ContactUsController;
+use App\Http\Controllers\Web\LoginController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Auth Routes
+Route::get('/login', [LoginController::class, 'show'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Home
 Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
@@ -32,34 +38,35 @@ Route::prefix('user')->group(function () {
     });
 });
 
-// Laptop
+// Admin Routes - Require JWT & Admin Role
+Route::middleware(['jwt', 'role:admin'])->group(function () {
+    // Laptop
+    Route::get('/laptops', [LaptopController::class, 'index'])->name('laptops.index');
+    Route::get('/laptops/create', [LaptopController::class, 'create'])->name('laptops.create');
+    Route::post('/laptops', [LaptopController::class, 'store'])->name('laptops.store');
+    Route::get('/laptops/{laptop}', [LaptopController::class, 'show'])->name('laptops.show');
+    Route::get('/laptops/{laptop}/edit', [LaptopController::class, 'edit'])->name('laptops.edit');
+    Route::put('/laptops/{laptop}', [LaptopController::class, 'update'])->name('laptops.update');
+    Route::delete('/laptops/{laptop}', [LaptopController::class, 'destroy'])->name('laptops.destroy');
 
-Route::get('/laptops', [LaptopController::class, 'index'])->name('laptops.index');
-Route::get('/laptops/create', [LaptopController::class, 'create'])->name('laptops.create');
-Route::post('/laptops', [LaptopController::class, 'store'])->name('laptops.store');
-Route::get('/laptops/{laptop}', [LaptopController::class, 'show'])->name('laptops.show');
-Route::get('/laptops/{laptop}/edit', [LaptopController::class, 'edit'])->name('laptops.edit');
-Route::put('/laptops/{laptop}', [LaptopController::class, 'update'])->name('laptops.update');
-Route::delete('/laptops/{laptop}', [LaptopController::class, 'destroy'])->name('laptops.destroy');
+    // Phone
+    Route::get('/phones',[PhoneController::class, 'index']) -> name('phones.index');
+    Route::get('/phones/create',[PhoneController::class,'create']) -> name('phones.create');
+    Route::post('/phones',  [PhoneController::class, 'store'])->name('phones.store');
+    Route::get('/phones/{phone}', [PhoneController::class,'show']) -> name('phones.show');
+    Route::get('/phones/{phone}/edit', [PhoneController::class, 'edit'])->name('phones.edit');
+    Route::put('/phones/{phone}', [PhoneController::class, 'update'])->name('phones.update');
+    Route::delete('/phones/{phone}', [PhoneController::class, 'destroy'])->name('phones.destroy');
 
-// Phone
+    // Gadget
+    Route::get('/gadgets',[GadgetController::class, 'index']) -> name('gadgets.index');
+    Route::get('/gadgets/create',[GadgetController::class,'create']) -> name('gadgets.create');
+    Route::post('/gadgets',  [GadgetController::class, 'store'])->name('gadgets.store');
+    Route::get('/gadgets/{gadget}', [GadgetController::class,'show']) -> name('gadgets.show');
+    Route::get('/gadgets/{gadget}/edit', [GadgetController::class, 'edit'])->name('gadgets.edit');
+    Route::put('/gadgets/{gadget}', [GadgetController::class, 'update'])->name('gadgets.update');
+    Route::delete('/gadgets/{gadget}', [GadgetController::class, 'destroy'])->name('gadgets.destroy');
 
-Route::get('/phones',[PhoneController::class, 'index']) -> name('phones.index');
-Route::get('/phones/create',[PhoneController::class,'create']) -> name('phones.create');
-Route::post('/phones',  [PhoneController::class, 'store'])->name('phones.store');
-Route::get('/phones/{phone}', [PhoneController::class,'show']) -> name('phones.show');
-Route::get('/phones/{phone}/edit', [PhoneController::class, 'edit'])->name('phones.edit');
-Route::put('/phones/{phone}', [PhoneController::class, 'update'])->name('phones.update');
-Route::delete('/phones/{phone}', [PhoneController::class, 'destroy'])->name('phones.destroy');
-
-// Gadget
-
-Route::get('/gadgets',[GadgetController::class, 'index']) -> name('gadgets.index');
-Route::get('/gadgets/create',[GadgetController::class,'create']) -> name('gadgets.create');
-Route::post('/gadgets',  [GadgetController::class, 'store'])->name('gadgets.store');
-Route::get('/gadgets/{gadget}', [GadgetController::class,'show']) -> name('gadgets.show');
-Route::get('/gadgets/{gadget}/edit', [GadgetController::class, 'edit'])->name('gadgets.edit');
-Route::put('/gadgets/{gadget}', [GadgetController::class, 'update'])->name('gadgets.update');
-Route::delete('/gadgets/{gadget}', [GadgetController::class, 'destroy'])->name('gadgets.destroy');
-
-// Contact Us
+    // Admin Home
+    Route::get('/admin/home', [AdminController::class, 'home'])->name('admin.home');
+});

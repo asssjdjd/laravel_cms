@@ -15,15 +15,35 @@ class HomeController extends Controller
      */
     public function index(): View
     {
-        // Paginate all products - 10 items per page
-        $laptops = Laptop::latest()->paginate(3);
-        $phones = Phone::latest()->paginate(4);
-        $gadgets = Gadget::latest()->paginate(3);
+        // Get all products from all categories
+        $laptops = Laptop::latest()->get();
+        $phones = Phone::latest()->get();
+        $gadgets = Gadget::latest()->get();
+        
+        // Merge all products and sort by created_at (newest first)
+        $allProducts = collect()
+            ->merge($laptops)
+            ->merge($phones)
+            ->merge($gadgets)
+            ->sortByDesc('created_at')
+            ->values();
+        
+        // Paginate merged collection - 10 items per page
+        $currentPage = \Illuminate\Pagination\Paginator::resolveCurrentPage();
+        $perPage = 10;
+        $products = new \Illuminate\Pagination\LengthAwarePaginator(
+            $allProducts->forPage($currentPage, $perPage),
+            $allProducts->count(),
+            $perPage,
+            $currentPage,
+            [
+                'path' => route('user.home'),
+                'query' => request()->query(),
+            ]
+        );
 
         return view('web.home.index', [
-            'laptops' => $laptops,
-            'phones' => $phones,
-            'gadgets' => $gadgets,
+            'products' => $products,
         ]);
     }
 

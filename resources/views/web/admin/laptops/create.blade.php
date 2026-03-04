@@ -39,7 +39,7 @@
             @csrf
 
             <!-- Tên Laptop -->
-            <div>
+            {{-- <div>
                 <label for="name" class="block text-sm font-bold text-gray-800 mb-3">
                     Tên Laptop <span class="text-red-500">*</span>
                 </label>
@@ -54,7 +54,7 @@
                 @error('name')
                     <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
                 @enderror
-            </div>
+            </div> --}}
 
             <!-- Tiêu đề chính -->
             <div>

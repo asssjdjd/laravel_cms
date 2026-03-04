@@ -12,19 +12,19 @@ class StoreLaptopRequest extends FormRequest
 
     public function rules() : array
     {
+        $imageRule = $this->isMethod('post') ? 'required' : 'nullable';
+        
         return [
-            'name' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'subTitle' => 'required|string|max:255',
             'content' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => $imageRule . '|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
     public function messages() : array
     {
         return [
-            'name.required' => 'Tên laptop không được để trống.',
             'title.required' => 'Tiêu đề không được để trống',
             'subTitle.required' => 'Tiêu đề phụ không được để trống',
             'content.required' => 'Nội dung không được để trống',

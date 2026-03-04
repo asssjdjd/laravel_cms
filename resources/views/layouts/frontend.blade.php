@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+<!DOCTY    <!-- CSS Files -->
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/util.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/page.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/hover.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
