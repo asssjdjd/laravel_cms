@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Request\StorePhoneRequest;
-use App\Models\Phone;
+use App\Models\Product;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
@@ -16,7 +16,7 @@ class PhoneController extends Controller
      */
     public function index() : View
     {
-        $phones = Phone::latest()->paginate(10);
+        $phones = Product::where('category', 'phone')->latest()->paginate(10);
 
         return view('web.admin.phones.index', compact('phones'));
     }
@@ -37,6 +37,11 @@ class PhoneController extends Controller
         try {
             $data = $request->validated();
 
+            // Auto-generate name from title if not provided
+            if (empty($data['name'] ?? null)) {
+                $data['name'] = 'phone_' . time() . '_' . substr(md5(rand()), 0, 6);
+            }
+
             // Handle file upload
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
@@ -49,7 +54,8 @@ class PhoneController extends Controller
                 $data['image'] = 'phones/' . $fileName;
             }
 
-            Phone::create($data);
+            $data['category'] = 'phone';
+            Product::create($data);
 
             return redirect()
                 ->route('phones.index')
@@ -68,7 +74,7 @@ class PhoneController extends Controller
     /**
      * Show phone details
      */
-    public function show(Phone $phone) : View
+    public function show(Product $phone) : View
     {
         return view('web.admin.phones.show', compact('phone'));
     }
@@ -76,7 +82,7 @@ class PhoneController extends Controller
     /**
      * Edit phone interface
      */
-    public function edit(Phone $phone) : View
+    public function edit(Product $phone) : View
     {
         return view('web.admin.phones.edit', compact('phone'));
     }
@@ -84,7 +90,7 @@ class PhoneController extends Controller
     /**
      * Update phone
      */
-    public function update(StorePhoneRequest $request, Phone $phone)
+    public function update(StorePhoneRequest $request, Product $phone)
     {
         try {
             $data = $request->validated();
@@ -120,7 +126,7 @@ class PhoneController extends Controller
     /**
      * Delete phone
      */
-    public function destroy(Phone $phone)
+    public function destroy(Product $phone)
     {
         try {
             // Delete image if exists

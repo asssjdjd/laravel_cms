@@ -25,20 +25,10 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // fake data laptop
+        // Run seeders
         $this->call([
             AdminSeeder::class,
-            LaptopSeeder::class,
-        ]);
-
-        // fake data phone
-        $this->call([
-            PhoneSeeder::class
-        ]);
-
-        // fake data gadget
-        $this->call([
-            GadgetSeeder::class
+            ProductSeeder::class,
         ]);
     }
 }

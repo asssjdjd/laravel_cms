@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
+@section('page_title', 'Dashboard - Trang Chủ Quản Lý')
+
 @section('content')
-<div class="container mx-auto px-4 py-8 max-w-7xl">
+<div>
     <!-- Header -->
-    <div class="mb-12 border-b border-gray-200 pb-6">
-        <h1 class="text-4xl font-bold text-gray-800 mb-2">Trang Chủ Quản Lý</h1>
-        <p class="text-gray-600 text-lg">Chào mừng đến với hệ thống quản lý nội dung</p>
+    <div class="mb-8 pb-6 border-b border-gray-200">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Trang Chủ Quản Lý</h1>
+        <p class="text-gray-600">Chào mừng đến với hệ thống quản lý nội dung</p>
     </div>
 
     <!-- Statistics Cards -->

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Request\StoreLaptopRequest;
-use App\Models\Laptop;
+use App\Models\Product;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
@@ -19,7 +19,7 @@ class LaptopController extends Controller {
 
     public function index() : View {
 
-        $laptops = Laptop::latest()->paginate(10);
+        $laptops = Product::where('category', 'laptop')->latest()->paginate(10);
 
         // dd($laptops);
 
@@ -42,6 +42,11 @@ class LaptopController extends Controller {
         try {
             $data = $request->validated();
 
+            // Auto-generate name from title if not provided
+            if (empty($data['name'] ?? null)) {
+                $data['name'] = 'laptop_' . time() . '_' . substr(md5(rand()), 0, 6);
+            }
+
             // Handle file upload
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
@@ -56,7 +61,8 @@ class LaptopController extends Controller {
 
             // dd($data);
 
-            Laptop::create($data);
+            $data['category'] = 'laptop';
+            Product::create($data);
 
             // dd($data);
 
@@ -77,21 +83,21 @@ class LaptopController extends Controller {
     /**
      * Show laptop details
      */
-    public function show(Laptop $laptop) : View {
+    public function show(Product $laptop) : View {
         return view('web.admin.laptops.show', compact('laptop'));
     }
 
     /**
      * Edit laptop interface
      */
-    public function edit(Laptop $laptop) : View {
+    public function edit(Product $laptop) : View {
         return view('web.admin.laptops.edit', compact('laptop'));
     }
 
     /**
      * Update laptop
      */
-    public function update(StoreLaptopRequest $request, Laptop $laptop) {
+    public function update(StoreLaptopRequest $request, Product $laptop) {
         try {
             $data = $request->validated();
 
@@ -126,7 +132,7 @@ class LaptopController extends Controller {
     /**
      * Delete laptop
      */
-    public function destroy(Laptop $laptop) {
+    public function destroy(Product $laptop) {
         try {
             // Xóa ảnh nếu có
             if ($laptop->image && file_exists(storage_path('app/public/' . $laptop->image))) {

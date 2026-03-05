@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Request\StoreGadgetRequest;
-use App\Models\Gadget;
+use App\Models\Product;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
@@ -16,7 +16,7 @@ class GadgetController extends Controller
      */
     public function index() : View
     {
-        $gadgets = Gadget::latest()->paginate(10);
+        $gadgets = Product::where('category', 'gadget')->latest()->paginate(10);
 
         return view('web.admin.gadgets.index', compact('gadgets'));
     }
@@ -37,6 +37,11 @@ class GadgetController extends Controller
         try {
             $data = $request->validated();
 
+            // Auto-generate name from title if not provided
+            if (empty($data['name'] ?? null)) {
+                $data['name'] = 'gadget_' . time() . '_' . substr(md5(rand()), 0, 6);
+            }
+
             // Handle file upload
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
@@ -49,7 +54,8 @@ class GadgetController extends Controller
                 $data['image'] = 'gadgets/' . $fileName;
             }
 
-            Gadget::create($data);
+            $data['category'] = 'gadget';
+            Product::create($data);
 
             return redirect()
                 ->route('gadgets.index')
@@ -67,7 +73,7 @@ class GadgetController extends Controller
     /**
      * Show gadget details
      */
-    public function show(Gadget $gadget) : View
+    public function show(Product $gadget) : View
     {
         return view('web.admin.gadgets.show', compact('gadget'));
     }
@@ -75,7 +81,7 @@ class GadgetController extends Controller
     /**
      * Edit gadget interface
      */
-    public function edit(Gadget $gadget) : View
+    public function edit(Product $gadget) : View
     {
         return view('web.admin.gadgets.edit', compact('gadget'));
     }
@@ -83,7 +89,7 @@ class GadgetController extends Controller
     /**
      * Update gadget
      */
-    public function update(StoreGadgetRequest $request, Gadget $gadget)
+    public function update(StoreGadgetRequest $request, Product $gadget)
     {
         try {
             $data = $request->validated();
@@ -119,7 +125,7 @@ class GadgetController extends Controller
     /**
      * Delete gadget
      */
-    public function destroy(Gadget $gadget)
+    public function destroy(Product $gadget)
     {
         try {
             // Delete image if exists

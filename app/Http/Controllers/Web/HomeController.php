@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Laptop;
-use App\Models\Phone;
-use App\Models\Gadget;
+use App\Models\Product;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -16,17 +14,7 @@ class HomeController extends Controller
     public function index(): View
     {
         // Get all products from all categories
-        $laptops = Laptop::latest()->get();
-        $phones = Phone::latest()->get();
-        $gadgets = Gadget::latest()->get();
-        
-        // Merge all products and sort by created_at (newest first)
-        $allProducts = collect()
-            ->merge($laptops)
-            ->merge($phones)
-            ->merge($gadgets)
-            ->sortByDesc('created_at')
-            ->values();
+        $allProducts = Product::latest()->get();
         
         // Paginate merged collection - 10 items per page
         $currentPage = \Illuminate\Pagination\Paginator::resolveCurrentPage();
@@ -52,7 +40,7 @@ class HomeController extends Controller
      */
     public function laptops(): View
     {
-        $laptops = Laptop::latest()->paginate(12);
+        $laptops = Product::where('category', 'laptop')->latest()->paginate(12);
 
         return view('web.home.laptop', [
             'laptops' => $laptops,
@@ -64,7 +52,7 @@ class HomeController extends Controller
      */
     public function phones(): View
     {
-        $phones = Phone::latest()->paginate(12);
+        $phones = Product::where('category', 'phone')->latest()->paginate(12);
 
         return view('web.home.phone', [
             'phones' => $phones,
@@ -76,7 +64,7 @@ class HomeController extends Controller
      */
     public function gadgets(): View
     {
-        $gadgets = Gadget::latest()->paginate(12);
+        $gadgets = Product::where('category', 'gadget')->latest()->paginate(12);
 
         return view('web.home.gadget', [
             'gadgets' => $gadgets,

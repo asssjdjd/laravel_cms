@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactUs;
-use App\Models\Laptop;
-use App\Models\Phone;
-use App\Models\Gadget;
+use App\Models\Product;
 use Illuminate\View\View;
 
 class AdminController extends Controller
@@ -16,9 +14,9 @@ class AdminController extends Controller
     public function home(): View
     {
         // Get statistics
-        $laptopCount = Laptop::count();
-        $phoneCount = Phone::count();
-        $gadgetCount = Gadget::count();
+        $laptopCount = Product::where('category', 'laptop')->count();
+        $phoneCount = Product::where('category', 'phone')->count();
+        $gadgetCount = Product::where('category', 'gadget')->count();
         $totalCount = $laptopCount + $phoneCount + $gadgetCount;
 
         // Get recent contact messages (limit 10)

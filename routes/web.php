@@ -45,7 +45,7 @@ Route::prefix('user')->group(function () {
     Route::get('/contact-us', [ContactUsController::class, 'index'])->name('user.contact');
     Route::post('/contact-us', [ContactUsController::class, 'store'])->name('user.contact.store');
     Route::get('/debug-laptops', function () {
-        $laptops = \App\Models\Laptop::paginate(12);
+        $laptops = \App\Models\Product::where('category', 'laptop')->paginate(12);
         dd($laptops);
     });
 });
