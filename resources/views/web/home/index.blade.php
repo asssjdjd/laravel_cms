@@ -192,7 +192,8 @@
                     </h2>
                     <div class="slide-meta">
                             <span class="category">
-                                <div class="category_2">
+                                <div class="category_2" style = "color : #18588f">
+                                    FEATURED
                                     @if(class_basename($product) == 'Laptop')
                                         <a href="{{ route('user.laptops') }}" class="slideEffect">LAPTOP</a>
                                     @elseif(class_basename($product) == 'Phone')
@@ -202,6 +203,8 @@
                                     @endif
                                 </div>
                             </span>
+                            {{-- <span> FEATURED </span>
+                            <p style = "color : #18588f">FEATURED</p> --}}
                             <span class="separator"></span> <span class="date"><a href="#" class = "slideEffect">{{ $product->created_at->format('M d, Y') }}</a></span>
                     </div>
                 </div>

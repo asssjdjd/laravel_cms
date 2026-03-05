@@ -11,7 +11,7 @@
                 </svg>
                 Quay lại danh sách
             </a>
-            <h1 class="text-3xl font-bold text-gray-800">{{ $laptop->name }}</h1>
+            {{-- <h1 class="text-3xl font-bold text-gray-800">{{ $laptop->name }}</h1> --}}
         </div>
         <div class="flex gap-2">
             <a href="{{ route('laptops.edit', $laptop) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition flex items-center gap-2">

@@ -25,7 +25,7 @@
                     <tr class="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
                         <th class="px-6 py-4 text-left font-semibold">STT</th>
                         <th class="px-6 py-4 text-left font-semibold">Hình Ảnh</th>
-                        <th class="px-6 py-4 text-left font-semibold">Tên Laptop</th>
+                        <th class="px-6 py-4 text-left font-semibold">Tên bài viết</th>
                         <th class="px-6 py-4 text-left font-semibold">Mô Tả</th>
                         {{-- <th class="px-6 py-4 text-left font-semibold">Giá</th> --}}
                         <th class="px-6 py-4 text-center font-semibold">Hành Động</th>
@@ -47,7 +47,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                <p class="font-semibold text-gray-800">{{ $laptop->name }}</p>
+                                <p class="font-semibold text-gray-800">{{ $laptop->title }}</p>
                             </td>
                             <td class="px-6 py-4 text-gray-600 text-sm max-w-xs truncate">
                                 {{ $laptop->subTitle ?? 'N/A' }}
